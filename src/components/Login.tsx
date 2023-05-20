@@ -27,8 +27,8 @@ export default function Login() {
     useSignInWithEmailAndPassword(auth);
 
   if (error) {
-    console.error('error')
-  } 
+    console.error('error');
+  }
   if (loading) {
     <p>Processando...</p>;
   }
@@ -36,9 +36,19 @@ export default function Login() {
     route.push('/');
   }
 
-  const handleForm = (e: any) => {
+  const handleForm = async (e: any) => {
     e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+    try{
+      await signInWithEmailAndPassword(email, password);
+      const user = auth.currentUser;
+      if (user) {
+        user.getIdToken().then((token) => {
+          localStorage.setItem('token', token);
+        });
+      }
+    }catch (error){
+      console.error(error)
+    }
   };
 
   return (

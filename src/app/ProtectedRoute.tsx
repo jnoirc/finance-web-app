@@ -12,17 +12,19 @@ interface jsx {
 export default function ProtectedRoute({ children }: jsx) {
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
-    if (!user) {
+    if (!user && !token) {
       route.push('/login');
     }
-  }, [loading, user, route]);
+  }, [user, route, token]);
 
   if (loading) {
     <div>Carregando...</div>;
   }
 
-  if (!user) {
+  if (!user && !token) {
     return null;
   }
 
