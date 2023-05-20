@@ -3,6 +3,7 @@ export type InputType = {
     label: string;
     isIcon: boolean;
     onInputChange: (e: any) => void;
+    error: true | false;
 };
 
 export type ButtonType = {

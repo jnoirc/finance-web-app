@@ -7,13 +7,13 @@ import Link from 'next/link';
 import ilustre from '@/assets/ilustre.png';
 import Input from '@/components/input';
 import Button from '@/components/Button';
-// import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-// import { auth } from "@/services/firebase";
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { auth } from '@/services/firebase';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  const route = useRouter();
 
   const handleEmail = (value: any) => {
     setEmail(value);
@@ -23,8 +23,22 @@ export default function Login() {
     setPassword(value);
   };
 
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  if (error) {
+    console.error('error')
+  } 
+  if (loading) {
+    <p>Processando...</p>;
+  }
+  if (user) {
+    route.push('/');
+  }
+
   const handleForm = (e: any) => {
     e.preventDefault();
+    signInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -44,6 +58,7 @@ export default function Login() {
             label="Email"
             isIcon={false}
             onInputChange={handleEmail}
+            error={error ? true : false}
           />
         </div>
 
@@ -53,6 +68,7 @@ export default function Login() {
             label="Password"
             isIcon={true}
             onInputChange={handlePassword}
+            error={error ? true : false}
           />
         </div>
         <Link href={'/register'} className="mt-1 mb-3 text-purple-800">

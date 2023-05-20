@@ -1,3 +1,5 @@
+'use client';
+
 import { ButtonType } from '@/types/type';
 import { MdDoubleArrow } from 'react-icons/md';
 import { useState } from 'react';

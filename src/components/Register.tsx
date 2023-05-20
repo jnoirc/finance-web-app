@@ -7,8 +7,8 @@ import Link from 'next/link';
 import ilustre from '@/assets/ilustre.png';
 import Input from '@/components/input';
 import Button from '@/components/Button';
-// import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-// import { auth } from "@/services/firebase";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { auth } from '@/services/firebase';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -23,8 +23,21 @@ export default function Register() {
     setPassword(value);
   };
 
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+    if(loading){
+      <p>Processando...</p>
+    }
+    if(error){
+      console.error(error)
+    }
+    if (user) {
+    router.push('/login');
+  }
+
   const handleForm = (e: any) => {
     e.preventDefault();
+    createUserWithEmailAndPassword(email, password)
   };
 
   return (
@@ -44,6 +57,7 @@ export default function Register() {
             label="Email"
             isIcon={false}
             onInputChange={handleEmail}
+            error={error ? true : false}
           />
         </div>
 
@@ -53,6 +67,7 @@ export default function Register() {
             label="Password"
             isIcon={true}
             onInputChange={handlePassword}
+            error={error ? true : false}
           />
         </div>
         <Link href={'/login'} className="mt-1 mb-3 text-purple-800">
