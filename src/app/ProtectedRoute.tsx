@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -12,19 +11,19 @@ interface jsx {
 export default function ProtectedRoute({ children }: jsx) {
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     if (!user && !token) {
       route.push('/login');
     }
-  }, [user, route, token]);
+  }, [user, route]);
 
   if (loading) {
     <div>Carregando...</div>;
   }
 
-  if (!user && !token) {
+  if (!user) {
     return null;
   }
 
