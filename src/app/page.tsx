@@ -7,7 +7,9 @@ export const metadata = {
 export default function Home() {
   return (
     <ProtectedRoute>
-      <Dashboard />
+      <body className='bg-zinc-200'>
+        <Dashboard />
+      </body>
     </ProtectedRoute>
   );
 }

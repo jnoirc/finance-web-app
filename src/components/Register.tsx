@@ -35,9 +35,9 @@ export default function Register() {
     router.push('/login');
   }
 
-  const handleForm = (e: any) => {
+  const handleForm = async (e: any) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
+    await createUserWithEmailAndPassword(email, password);
   };
 
   return (
@@ -70,9 +70,12 @@ export default function Register() {
             error={error ? true : false}
           />
         </div>
-        <Link href={'/login'} className="mt-1 mb-3 text-purple-800">
-          Criar conta
-        </Link>
+        <div className='flex mt-1'>
+          <span className='font-semibold text-zinc-600'>Já tem uma conta?</span>
+          <Link href={'/login'} className="ml-3 mb-3 text-purple-800">
+            Acesse
+          </Link>
+        </div>
         <Button onClick={handleForm} title="Cadastrar" />
       </form>
     </div>

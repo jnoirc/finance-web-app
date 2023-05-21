@@ -81,9 +81,12 @@ export default function Login() {
             error={error ? true : false}
           />
         </div>
-        <Link href={'/register'} className="mt-1 mb-3 text-purple-800">
-          Criar conta
-        </Link>
+        <div className='flex mt-1'>
+          <span className='font-semibold text-zinc-600'>Não tem uma conta?</span>
+          <Link href={'/register'} className="ml-3 mb-3 text-purple-800">
+            Criar agora
+          </Link>
+        </div>
         <Button onClick={handleForm} title="Entrar" />
       </form>
     </div>

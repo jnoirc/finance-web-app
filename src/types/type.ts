@@ -11,3 +11,12 @@ export type ButtonType = {
     onClick: any;
 };
 
+export type ListType = {
+    title: string;
+    icon: JSX.Element;
+    onClick?: () => void; 
+} 
+
+export type HeaderType = {
+    onClick: () => void;
+}
