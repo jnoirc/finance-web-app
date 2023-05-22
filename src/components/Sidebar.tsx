@@ -17,8 +17,12 @@ import { AiFillSetting } from 'react-icons/ai';
 import { AiFillDelete } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 import Header from './Header';
+import ConfirModal from './ConfirmModal';
+
 export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
   const [signOut, loading] = useSignOut(auth);
   const [user] = useAuthState(auth);
   const [deleteUser] = useDeleteUser(auth);
@@ -26,28 +30,44 @@ export default function Sidebar() {
   if (loading) {
     <p>Procesando...</p>;
   }
-  const logout = async () => {
-    await signOut();
-    localStorage.removeItem('token');
+  const logout = () => {
+    signOut()
+      .then(() => {
+        localStorage.removeItem('token');
+        route.push('/login');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const handleDeleteUser = async () => {
+  const handleDeleteUser = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirm = () => {
     if (user) {
-      await deleteUser()
+      deleteUser()
         .then(() => {
           route.push('/login');
+          localStorage.removeItem('token');
         })
         .catch((error) => {
           console.error(error);
         });
     }
   };
+
+  const handleCancel = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <aside
         className={`${
           showSidebar ? 'left-0' : '-left-52'
-        } fixed h-screen w-52 bg-white shadow-xl duration-500 z-20`}
+        } fixed h-screen w-52 bg-white shadow-xl duration-500 z-20 overflow-y-auto`}
       >
         <button
           className="absolute right-4 top-3 text-2xl"
@@ -72,9 +92,32 @@ export default function Sidebar() {
           icon={<AiFillDelete />}
           title="Deletar conta"
         />
-        <List onClick={logout} icon={<BiLogOut />} title="Sair" />
+        <List
+          onClick={() => setShowModal2(true)}
+          icon={<BiLogOut />}
+          title="Sair"
+        />
       </aside>
       <Header onClick={() => setShowSidebar(!showSidebar)} />
+      {showModal && (
+        <ConfirModal
+          title="Excluir conta"
+          message="Depois de cancelar uma conta, ela é excluída permanentemente. Essa
+        ação não pode ser desfeita."
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          onCancelX={() => setShowModal(false)}
+        />
+      )}
+      {showModal2 && (
+        <ConfirModal
+          title="Sair"
+          message="Tem certeza que quer mesmo sair?"
+          onConfirm={logout}
+          onCancel={() => setShowModal2(false)}
+          onCancelX={() => setShowModal2(false)}
+        />
+      )}
     </>
   );
 }

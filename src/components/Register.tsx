@@ -25,11 +25,15 @@ export default function Register() {
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  if (loading) {
-    <p>Processando...</p>;
-  }
+    if (loading) {
+      return (
+        <div className="h-screen flex items-center justify-center">
+          <p className="text-lg font-bold">Processando...</p>
+        </div>
+      );
+    }
   if (error) {
-    console.error('error');
+    console.error(`Error:`, error);
   }
   if (user) {
     router.push('/login');

@@ -30,7 +30,11 @@ export default function Login() {
     console.error('error');
   }
   if (loading) {
-    <p>Processando...</p>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-lg font-bold">Processando...</p>
+      </div>
+    );
   }
   if (user) {
     route.push('/');

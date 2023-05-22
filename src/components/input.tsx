@@ -1,6 +1,6 @@
 'use client';
 
-import { InputType } from '@/types/type';
+import { InputTwoo, InputType } from '@/types/type';
 import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
@@ -26,7 +26,11 @@ export default function Input({
   return (
     <div className="relative">
       <input
-        className={`${error ? 'bg-red-100 focus:border-red-400 border-red-400' : 'bg-white focus:border-purple-600'} rounded border-2 outline-none  p-3 w-72 mb-3 pl-4 duration-300`}
+        className={`${
+          error
+            ? 'bg-red-100 focus:border-red-400 border-red-400'
+            : 'bg-white focus:border-purple-600'
+        } rounded border-2 outline-none  p-3 w-72 mb-3 pl-4 duration-300`}
         type={showPassword ? 'text' : type}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -34,9 +38,11 @@ export default function Input({
         onChange={handleInputChange}
       />
       <label
-        className={`${
-          isFocused || inputValue ? '-top-2 text-xs' : 'top-3' 
-        } ${error ? 'bg-red-100 text-red-400 font-semibold' : 'bg-white text-zinc-600'} absolute left-4 duration-500 px-1`}
+        className={`${isFocused || inputValue ? '-top-2 text-xs' : 'top-3'} ${
+          error
+            ? 'bg-red-100 text-red-400 font-semibold'
+            : 'bg-white text-zinc-600'
+        } absolute left-4 duration-500 px-1`}
       >
         {label}
       </label>
@@ -56,3 +62,18 @@ export default function Input({
     </div>
   );
 }
+
+export const InputTwo = ({ title, type }: InputTwoo) => {
+  return (
+    <div>
+      <label htmlFor="description" className="block font-bold text-lg mt-2 sm:mt-0">
+        {title}
+      </label>
+      <input
+        id="description"
+        className="border border-zinc-400 rounded focus:border-purple-600 focus:border-2 outline-none w-52 p-2"
+        type={type}
+      />
+    </div>
+  );
+};

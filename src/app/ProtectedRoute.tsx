@@ -20,7 +20,11 @@ export default function ProtectedRoute({ children }: jsx) {
   }, [user, route]);
 
   if (loading) {
-    <div>Carregando...</div>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-lg font-bold">Carregando...</p>
+      </div>
+    );
   }
 
   if (!user) {
