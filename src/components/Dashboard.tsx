@@ -1,34 +1,48 @@
 'use client';
-import { useState } from 'react';
-import Card from './Card';
-import Sidebar from './Sidebar';
+import { useState, useEffect } from 'react';
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
 } from 'react-icons/bs';
 import { MdOutlineAttachMoney } from 'react-icons/md';
+import Card from './Card';
+import Sidebar from './Sidebar';
 import { InputTwo } from './input';
-import { AiFillDelete } from 'react-icons/ai';
+import Grid from './Grid';
+import formatMoney from '@/utils/functions/moneyFormat';
+import addedItem from '@/utils/functions/addItem';
 
 export default function Dashboard() {
   const [moneyRevenue, setMoneyRevenue] = useState(0);
   const [moneyExpense, setMoneyExpense] = useState(0);
   const [moneyBalance, setMoneyBalance] = useState(0);
+  const [inputDescription, setInputDescription] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
+  const [selectedType, setSelectedType] = useState('revenue');
+  const convertMoneyRevenue = formatMoney(moneyRevenue);
+  const convertMoneyExpense = formatMoney(moneyExpense);
+  const convertMoneyBalance = formatMoney(moneyBalance);
 
-  const convertMoneyRevenue = moneyRevenue.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
+  useEffect(() => {
+    const storedItems = localStorage.getItem('items');
+    if (storedItems) {
+      const items = JSON.parse(storedItems);
+      let revenueTotal = 0;
+      let expenseTotal = 0;
 
-  const convertMoneyExpense = moneyExpense.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
+      items.forEach((item: any) => {
+        if (item.type === 'revenue') {
+          revenueTotal += parseFloat(item.value);
+        } else if (item.type === 'expense') {
+          expenseTotal += parseFloat(item.value);
+        }
+      });
 
-  const convertMoneyBalance = moneyBalance.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
+      setMoneyRevenue(revenueTotal);
+      setMoneyExpense(expenseTotal);
+      setMoneyBalance(revenueTotal - expenseTotal);
+    }
+  }, []);
 
   return (
     <div className="mb-10">
@@ -37,7 +51,7 @@ export default function Dashboard() {
       </aside>
 
       <header className="flex">
-        <div className="w-full h-32 bg-purple-800 text-2xl text-white text-center font-bold pt-4">
+        <div className="w-full h-52 bg-purple-800 text-2xl text-white text-center font-bold pt-24">
           <h1>Sistema de finanças</h1>
         </div>
       </header>
@@ -65,8 +79,16 @@ export default function Dashboard() {
         </section>
         <section className="block text-center lg:flex gap-4 items-center justify-center mt-2 ">
           <div className="block sm:flex justify-center gap-4">
-            <InputTwo title="Descrição" type="text" />
-            <InputTwo title="Valor" type="number" />
+            <InputTwo
+              onChange={(e) => setInputDescription(e.target.value)}
+              title="Descrição"
+              type="text"
+            />
+            <InputTwo
+              onChange={(e) => setInputValue(e.target.value)}
+              title="Valor"
+              type="number"
+            />
           </div>
           <div className="mt-8">
             <input
@@ -74,6 +96,8 @@ export default function Dashboard() {
               className="w-5 h-5 cursor-pointer"
               type="radio"
               name="option"
+              checked={selectedType === 'revenue'}
+              onChange={() => setSelectedType('revenue')}
             />
             <label
               className="text-xl font-bold ml-2 cursor-pointer"
@@ -86,6 +110,8 @@ export default function Dashboard() {
               className="w-5 h-5 ml-4 cursor-pointer"
               type="radio"
               name="option"
+              checked={selectedType === 'expense'}
+              onChange={() => setSelectedType('expense')}
             />
             <label
               className="text-xl font-bold ml-2 cursor-pointer"
@@ -94,33 +120,37 @@ export default function Dashboard() {
               Despesa
             </label>
             <hr className="block sm:hidden" />
-            <button className="text-white bg-green-700 hover:bg-green-600 w-32 p-2 border-none rounded duration-500 font-bold ml-4 mt-6 sm:mt-0 ">
+            <button
+              onClick={() =>
+                addedItem(
+                  {
+                    description: inputDescription,
+                    value: inputValue,
+                    type: selectedType === 'revenue' ? 'revenue' : 'expense',
+                  },
+                  moneyRevenue,
+                  setMoneyRevenue,
+                  moneyExpense,
+                  setMoneyExpense,
+                  moneyBalance,
+                  setMoneyBalance
+                )
+              }
+              className="text-white bg-green-700 hover:bg-green-600 w-32 p-2 border-none rounded duration-500 font-bold ml-4 mt-6 sm:mt-0"
+            >
               Adicionar
             </button>
           </div>
         </section>
-
-        <section className="grid grid-cols-4 place-items-center bg-white shadow-2xl p-2 mt-4">
-          <div>
-            <h2 className='font-bold'>Dscrição</h2>
-            <span className='block mt-4 font-medium'>Salário</span>
-          </div>
-          <div>
-            <h2 className='font-bold'>Valor</h2>
-            <span className='block mt-4 font-medium'>R$10000,00</span>
-          </div>
-          <div>
-            <h2 className='font-bold'>Tipo</h2>
-            <span className='block mt-4'>
-              <BsFillArrowUpCircleFill className='text-2xl'/>
-            </span>
-          </div>
-          <div>
-            <h2 className='font-bold'>Excluir</h2>
-            <span className='block mt-4'>
-              <AiFillDelete className='text-2xl cursor-pointer'/>
-            </span>
-          </div>
+        <section>
+          <Grid
+            setMoneyRevenue={setMoneyRevenue}
+            setMoneyExpense={setMoneyExpense}
+            setMoneyBalance={setMoneyBalance}
+            moneyRevenue={moneyRevenue}
+            moneyExpense={moneyExpense}
+            moneyBalance={moneyBalance}
+          />
         </section>
       </main>
     </div>

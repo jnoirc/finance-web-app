@@ -63,16 +63,17 @@ export default function Input({
   );
 }
 
-export const InputTwo = ({ title, type }: InputTwoo) => {
+export const InputTwo = ({ title, type, onChange }: InputTwoo) => {
   return (
     <div>
-      <label htmlFor="description" className="block font-bold text-lg mt-2 sm:mt-0">
+      <label htmlFor="input" className="block font-bold text-lg mt-2 sm:mt-0">
         {title}
       </label>
       <input
-        id="description"
+        id="input"
         className="border border-zinc-400 rounded focus:border-purple-600 focus:border-2 outline-none w-52 p-2"
         type={type}
+        onChange={onChange}
       />
     </div>
   );

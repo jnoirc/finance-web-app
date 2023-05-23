@@ -42,7 +42,7 @@ export default function Login() {
 
   const handleForm = async (e: any) => {
     e.preventDefault();
-    try{
+    try {
       await signInWithEmailAndPassword(email, password);
       const user = auth.currentUser;
       if (user) {
@@ -50,8 +50,8 @@ export default function Login() {
           localStorage.setItem('token', token);
         });
       }
-    }catch (error){
-      console.error(error)
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -85,8 +85,10 @@ export default function Login() {
             error={error ? true : false}
           />
         </div>
-        <div className='flex mt-1'>
-          <span className='font-semibold text-zinc-600'>Não tem uma conta?</span>
+        <div className="flex mt-1">
+          <span className="font-semibold text-zinc-600">
+            Não tem uma conta?
+          </span>
           <Link href={'/register'} className="ml-3 mb-3 text-purple-800">
             Criar agora
           </Link>

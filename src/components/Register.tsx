@@ -15,23 +15,23 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleEmail = (value: any) => {
+  const handleEmail = (value: string) => {
     setEmail(value);
   };
 
-  const handlePassword = (value: any) => {
+  const handlePassword = (value: string) => {
     setPassword(value);
   };
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-    if (loading) {
-      return (
-        <div className="h-screen flex items-center justify-center">
-          <p className="text-lg font-bold">Processando...</p>
-        </div>
-      );
-    }
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-lg font-bold">Processando...</p>
+      </div>
+    );
+  }
   if (error) {
     console.error(`Error:`, error);
   }
@@ -74,8 +74,8 @@ export default function Register() {
             error={error ? true : false}
           />
         </div>
-        <div className='flex mt-1'>
-          <span className='font-semibold text-zinc-600'>Já tem uma conta?</span>
+        <div className="flex mt-1">
+          <span className="font-semibold text-zinc-600">Já tem uma conta?</span>
           <Link href={'/login'} className="ml-3 mb-3 text-purple-800">
             Acesse
           </Link>

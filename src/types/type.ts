@@ -40,4 +40,22 @@ export type CardType = {
 export type InputTwoo = {
     title: string;
     type: string;
+    onChange: (e:any) => void;
 }
+
+export type ItemType = {
+    description: string;
+    value: number;
+    type: string;
+  }
+
+  
+export type DeleteItem = {
+    setMoneyRevenue: React.Dispatch<React.SetStateAction<number>>;
+    setMoneyExpense: React.Dispatch<React.SetStateAction<number>>;
+    setMoneyBalance: React.Dispatch<React.SetStateAction<number>>
+    moneyRevenue: number; 
+    moneyExpense: number; 
+    moneyBalance: number;
+}
+  
