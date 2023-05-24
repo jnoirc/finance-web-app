@@ -6,7 +6,7 @@ export default function addedItem(
     moneyExpense: number,
     setMoneyExpense: (value: number) => void,
     moneyBalance: number,
-    setMoneyBalance: (value: number) => void
+    setMoneyBalance: (value: number) => void,
   ) {
     if (newItem.description && newItem.value) {
       const parsedValue = parseFloat(newItem.value) 
@@ -23,8 +23,6 @@ export default function addedItem(
       const items = storedItems ? JSON.parse(storedItems) : [];
       items.push(newItem);
       localStorage.setItem('items', JSON.stringify(items));
-    }else{
-      alert('Preencha os campos');
-    }
-  }
+    };
+  };
   

@@ -1,6 +1,6 @@
 'use client';
 
-import { InputTwoo, InputType } from '@/types/type';
+import { InputType } from '@/types/type';
 import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
@@ -62,19 +62,3 @@ export default function Input({
     </div>
   );
 }
-
-export const InputTwo = ({ title, type, onChange }: InputTwoo) => {
-  return (
-    <div>
-      <label htmlFor="input" className="block font-bold text-lg mt-2 sm:mt-0">
-        {title}
-      </label>
-      <input
-        id="input"
-        className="border border-zinc-400 rounded focus:border-purple-600 focus:border-2 outline-none w-52 p-2"
-        type={type}
-        onChange={onChange}
-      />
-    </div>
-  );
-};

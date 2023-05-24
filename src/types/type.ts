@@ -1,9 +1,9 @@
 export type InputType = {
     type: string;
     label: string;
-    isIcon: boolean;
+    isIcon?: boolean;
     onInputChange: (e: any) => void;
-    error: true | false;
+    error?: true | false;
 };
 
 export type ButtonType = {
@@ -37,18 +37,11 @@ export type CardType = {
     colorMoney: 'green' |'red';
 };
 
-export type InputTwoo = {
-    title: string;
-    type: string;
-    onChange: (e:any) => void;
-}
-
 export type ItemType = {
     description: string;
     value: number;
     type: string;
   }
-
   
 export type DeleteItem = {
     setMoneyRevenue: React.Dispatch<React.SetStateAction<number>>;

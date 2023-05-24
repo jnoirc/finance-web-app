@@ -8,20 +8,23 @@ export default function deleteItem(
   moneyBalance: number
 ) {
   const storedItems = localStorage.getItem('items');
-  if (storedItems) {
-    const items = JSON.parse(storedItems);
-    const deletedItem = items[index];
-    const updatedItems = items.filter((_:any, i:any) => i !== index); 
-    
-    localStorage.setItem('items', JSON.stringify(updatedItems));
-    const deletedValue = parseFloat(deletedItem.value);
-
-    if (deletedItem.type === 'revenue') {
-      setMoneyRevenue(moneyRevenue - deletedValue);
-      setMoneyBalance(moneyBalance - deletedValue);
-    } else if (deletedItem.type === 'expense') {
-      setMoneyExpense(moneyExpense - deletedValue);
-      setMoneyBalance(moneyBalance + deletedValue);
+  const confirm = window.confirm('Deseja mesmo excluir?');
+  if(confirm){
+    if (storedItems) {
+      const items = JSON.parse(storedItems);
+      const deletedItem = items[index];
+      const updatedItems = items.filter((_:any, i:any) => i !== index); 
+      
+      localStorage.setItem('items', JSON.stringify(updatedItems));
+      const deletedValue = parseFloat(deletedItem.value);
+  
+      if (deletedItem.type === 'revenue') {
+        setMoneyRevenue(moneyRevenue - deletedValue);
+        setMoneyBalance(moneyBalance - deletedValue);
+      } else if (deletedItem.type === 'expense') {
+        setMoneyExpense(moneyExpense - deletedValue);
+        setMoneyBalance(moneyBalance + deletedValue);
+      }
     }
-  }
-}
+  };
+};

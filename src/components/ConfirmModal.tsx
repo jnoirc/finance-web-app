@@ -10,7 +10,7 @@ const ConfirModal = ({
 }: ConfirmModalType) => {
   return (
     <div className="fixed inset-0 h-screen w-full bg-gray-500 flex items-center justify-center p-2 z-30">
-      <div className="bg-white w-80 sm:w-480 h-60 rounded-lg shadow-md relative transition-opacity">
+      <div className="bg-white w-370 sm:w-480 h-60 rounded-lg shadow-md relative transition-opacity">
         <FaTimes
           onClick={onCancelX}
           className="absolute right-4 top-4 cursor-pointer text-2xl"
