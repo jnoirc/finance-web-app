@@ -3,8 +3,6 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
-import { useDocument } from 'react-firebase-hooks/firestore';
-import { getFirestore } from 'firebase/firestore';
 interface jsx {
   children: React.ReactNode;
 }
@@ -12,14 +10,12 @@ interface jsx {
 export default function ProtectedRoute({ children }: jsx) {
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
-  const firestore = getFirestore();
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!user && !token) {
       route.push('/login');
     }
   }, [user, route]);
-
 
   if (loading) {
     return (
@@ -33,5 +29,5 @@ export default function ProtectedRoute({ children }: jsx) {
     return null;
   }
 
-  return <div>{children}</div>
+  return <div>{children}</div>;
 }

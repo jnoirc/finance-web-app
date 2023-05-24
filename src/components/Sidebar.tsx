@@ -6,13 +6,13 @@ import {
 } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useState } from 'react';
 import { ListType } from '@/types/type';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaReadme } from 'react-icons/fa';
 import { RiDashboardFill } from 'react-icons/ri';
 import { SiGoogleanalytics } from 'react-icons/si';
 import { IoMdNotifications } from 'react-icons/io';
-import { MdLiveHelp } from 'react-icons/md';
 import { AiFillSetting } from 'react-icons/ai';
 import { AiFillDelete } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
@@ -66,11 +66,11 @@ export default function Sidebar() {
     <>
       <aside
         className={`${
-          showSidebar ? 'left-0' : '-left-52'
+          showSidebar ? 'left-0' : '-left-52 md:left-0'
         } fixed h-screen w-52 bg-white shadow-xl duration-500 z-20 overflow-y-auto`}
       >
         <button
-          className="absolute right-4 top-3 text-2xl"
+          className="md:hidden absolute right-4 top-3 text-2xl"
           onClick={() => setShowSidebar(false)}
         >
           <FaTimes />
@@ -85,7 +85,9 @@ export default function Sidebar() {
             <span>7</span>
           </div>
         </div>
-        <List icon={<MdLiveHelp />} title="Ajuda" />
+        <Link href='/readme'>
+          <List icon={<FaReadme />} title="Sobre" />
+        </Link>
         <List icon={<AiFillSetting />} title="Configurações" />
         <List
           onClick={handleDeleteUser}
