@@ -1,3 +1,5 @@
+'use client'
+import { useContext } from 'react';
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
@@ -5,12 +7,12 @@ import {
 import { AiFillDelete } from 'react-icons/ai';
 import { DeleteItem, ItemType } from '@/types/type';
 import deleteItem from '@/utils/functions/deleteItem';
-import { useSelector } from 'react-redux';
+import { ThemeContext } from '@/context/themeContext';
 
 export default function Grid(props: DeleteItem) {
   const storedItems = localStorage.getItem('items');
   const items = storedItems ? JSON.parse(storedItems) : [];
-  const theme = useSelector(state => state);
+  const { theme }: any = useContext(ThemeContext);
 
   return items.map((item: ItemType, index: number) => (
     <section

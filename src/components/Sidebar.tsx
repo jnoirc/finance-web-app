@@ -7,7 +7,7 @@ import {
 import { auth } from '@/services/firebase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ListType } from '@/types/type';
 import { FaTimes, FaReadme } from 'react-icons/fa';
 import { RiDashboardFill } from 'react-icons/ri';
@@ -18,10 +18,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 import Header from './Header';
 import ConfirModal from './ConfirmModal';
-import { useDispatch } from 'react-redux';
-import { setThemeLight, setThemeDark } from '@/redux/modules/themeStore';
-import { useSelector } from 'react-redux';
-
+import { ThemeContext } from '@/context/themeContext';
 export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -30,24 +27,26 @@ export default function Sidebar() {
   const [user] = useAuthState(auth);
   const [deleteUser] = useDeleteUser(auth);
   const route = useRouter();
-  const dispatch = useDispatch();
-  const theme = useSelector((state) => state);
-  const themeLocal = JSON.parse(localStorage.getItem('theme')!);
-
+  const [isMounted, setIsMounted] = useState(false);
+  const [showConfigs, setShowConfigs] = useState(false);
+  const { theme, setTheme }: any = useContext(ThemeContext);
   useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(theme));
-  }, [theme]);
+    const themeLocal = localStorage.getItem('theme');
 
-  useEffect(() => {
-    switch (themeLocal) {
-      case 'ligth':
-        dispatch(setThemeLight());
-        break;
-      case 'dark':
-        dispatch(setThemeDark());
-        break;
+    if (themeLocal) {
+      setTheme(themeLocal);
+    } else {
+      setTheme('light');
     }
-  }, [dispatch, themeLocal]);
+
+    setIsMounted(true);
+  }, [setTheme]);
+
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, isMounted]);
 
   if (loading) {
     <p>Procesando...</p>;
@@ -112,7 +111,29 @@ export default function Sidebar() {
         <Link href="/readme">
           <List icon={<FaReadme />} title="Sobre" />
         </Link>
-        <List icon={<AiFillSetting />} title="Configurações" />
+        <List onClick={() => setShowConfigs(!showConfigs)} icon={<AiFillSetting />} title="Configurações" />
+        <div className={`${showConfigs ? 'flex' : 'hidden'} gap-2 items-center ml-12 mb-3`}>
+          <div className="flex">
+            <input
+              className='cursor-pointer'
+              name="option"
+              id="light"
+              type="radio"
+              onClick={() => setTheme('light')}
+            />
+            <label className='font-semibold ml-2 cursor-pointer' htmlFor="light">Light</label>
+          </div>
+          <div className="flex">
+            <input
+              className='cursor-pointer'
+              name="option"
+              id="dark"
+              type="radio"
+              onClick={() => setTheme('dark')}
+            />
+            <label className='font-semibold ml-2 cursor-pointer' htmlFor="dark">Dark</label>
+          </div>
+        </div>
         <List
           onClick={handleDeleteUser}
           icon={<AiFillDelete />}
@@ -123,8 +144,6 @@ export default function Sidebar() {
           icon={<BiLogOut />}
           title="Sair"
         />
-        <button onClick={() => dispatch(setThemeLight())}>Light</button>
-        <button onClick={() => dispatch(setThemeDark())}>Dark</button>
       </aside>
       <Header onClick={() => setShowSidebar(!showSidebar)} />
       {showModal && (

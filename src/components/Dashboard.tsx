@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
@@ -12,7 +12,7 @@ import formatMoney from '@/utils/functions/moneyFormat';
 import addedItem from '@/utils/functions/addItem';
 import Input from './input';
 import { FaTimes } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { ThemeContext } from '@/context/themeContext';
 
 export default function Dashboard() {
   const [moneyRevenue, setMoneyRevenue] = useState(0);
@@ -26,7 +26,7 @@ export default function Dashboard() {
   const convertMoneyBalance = formatMoney(moneyBalance);
   const colorMoney = moneyBalance < 0 ? 'red' : 'green';
   const [showModal, setShowModal] = useState(false);
-  const theme = useSelector(state => state);
+  const { theme }: any = useContext(ThemeContext);
   useEffect(() => {
     const storedItems = localStorage.getItem('items');
     if (storedItems) {

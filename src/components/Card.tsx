@@ -1,10 +1,10 @@
 'use client';
-
+import { useContext } from 'react';
+import { ThemeContext } from '@/context/themeContext';
 import { CardType } from '@/types/type';
-import { useSelector } from 'react-redux';
 
 export default function Card({ title, money, icon, colorMoney }: CardType) {
-  const theme = useSelector((state) => state);
+  const { theme }: any = useContext(ThemeContext);
   const colorStyles = {
     green: 'text-green-600',
     red: 'text-red-600',
