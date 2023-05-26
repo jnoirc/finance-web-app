@@ -1,4 +1,3 @@
-'use client'
 import ProtectedRoute from './ProtectedRoute';
 import Dashboard from '@/components/Dashboard';
 import { useSelector } from 'react-redux';

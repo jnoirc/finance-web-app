@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { BsGithub } from 'react-icons/bs'
+
 export const metadata = {
-  title: 'readme',
+  title: 'Readme',
 };
 
 export default function page() {
