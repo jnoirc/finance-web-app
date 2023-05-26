@@ -8,11 +8,12 @@ export const metadata = {
 
 export default function Home() {
   const theme = useSelector(state => state);
+  const containerClassName = theme === 'dark' ? 'bg-neutral-950' : 'bg-zinc-200';
   return (
     <ProtectedRoute>
-      <body className={`${theme === 'dark' ? 'bg-neutral-950' : 'bg-zinc-200'}`}>
+      <div className={containerClassName}>
         <Dashboard />
-      </body>
+      </div>
     </ProtectedRoute>
   );
 }
