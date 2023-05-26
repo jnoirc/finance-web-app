@@ -73,6 +73,7 @@ export default function Login() {
             isIcon={false}
             onInputChange={handleEmail}
             error={error ? true : false}
+            labelAuth={true}
           />
         </div>
 
@@ -83,6 +84,7 @@ export default function Login() {
             isIcon={true}
             onInputChange={handlePassword}
             error={error ? true : false}
+            labelAuth={true}
           />
         </div>
         <div className="flex mt-1">

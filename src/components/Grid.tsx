@@ -5,14 +5,16 @@ import {
 import { AiFillDelete } from 'react-icons/ai';
 import { DeleteItem, ItemType } from '@/types/type';
 import deleteItem from '@/utils/functions/deleteItem';
+import { useSelector } from 'react-redux';
 
 export default function Grid(props: DeleteItem) {
   const storedItems = localStorage.getItem('items');
   const items = storedItems ? JSON.parse(storedItems) : [];
+  const theme = useSelector(state => state);
 
   return items.map((item: ItemType, index: number) => (
     <section
-      className="grid grid-cols-4 place-items-center bg-white shadow-2xl p-2 mt-4"
+      className={`${theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-white'} grid grid-cols-4 place-items-center shadow-2xl p-2 mt-4`}
       key={index}
     >
       <div>

@@ -62,6 +62,7 @@ export default function Register() {
             isIcon={false}
             onInputChange={handleEmail}
             error={error ? true : false}
+            labelAuth={true}
           />
         </div>
 
@@ -72,6 +73,7 @@ export default function Register() {
             isIcon={true}
             onInputChange={handlePassword}
             error={error ? true : false}
+            labelAuth={true}
           />
         </div>
         <div className="flex mt-1">

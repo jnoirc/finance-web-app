@@ -12,6 +12,7 @@ import formatMoney from '@/utils/functions/moneyFormat';
 import addedItem from '@/utils/functions/addItem';
 import Input from './input';
 import { FaTimes } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 export default function Dashboard() {
   const [moneyRevenue, setMoneyRevenue] = useState(0);
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const convertMoneyBalance = formatMoney(moneyBalance);
   const colorMoney = moneyBalance < 0 ? 'red' : 'green';
   const [showModal, setShowModal] = useState(false);
+  const theme = useSelector(state => state);
   useEffect(() => {
     const storedItems = localStorage.getItem('items');
     if (storedItems) {
@@ -134,8 +136,8 @@ export default function Dashboard() {
             } transition-opacity duration-500`}
           >
             {showModal && (
-              <section className="fixed inset-0 h-screen w-full bg-gray-500 flex items-center justify-center z-30">
-                <div className="bg-white w-370 sm:w-480 h-80 rounded-lg shadow-md relative transition-opacity flex items-center justify-center flex-col text-center pt-4">
+              <section className={`${theme === 'dark' ? 'bg-neutral-800' : 'bg-neutral-500'} fixed inset-0 h-screen w-full flex items-center justify-center z-30`}>
+                <div className={`${theme === 'dark' ? 'shadow-xl bg-neutral-900 text-white' : 'shadow-md bg-white'} w-370 sm:w-480 h-80 rounded-lg relative transition-opacity flex items-center justify-center flex-col text-center pt-4`}>
                   <FaTimes
                     onClick={() => setShowModal(false)}
                     className="absolute right-4 top-4 cursor-pointer text-2xl"
@@ -145,11 +147,15 @@ export default function Dashboard() {
                       label="description"
                       onInputChange={handleDescription}
                       type="text"
+                      inputDashboard={true}
+                      labelDashboard={true}
                     />
                     <Input
                       label="value"
                       onInputChange={handleValue}
                       type="number"
+                      inputDashboard={true}
+                      labelDashboard={true}
                     />
                   </div>
                   <div className="mt-8 flex flex-col sm:flex-row items-center justify-center">

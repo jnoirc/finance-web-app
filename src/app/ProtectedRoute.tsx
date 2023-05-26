@@ -1,4 +1,4 @@
-'use client';
+
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -29,5 +29,5 @@ export default function ProtectedRoute({ children }: jsx) {
     return null;
   }
 
-  return <div>{children}</div>;
+  return <html>{children}</html>;
 }

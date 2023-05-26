@@ -7,7 +7,7 @@ import {
 import { auth } from '@/services/firebase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ListType } from '@/types/type';
 import { FaTimes, FaReadme } from 'react-icons/fa';
 import { RiDashboardFill } from 'react-icons/ri';
@@ -18,6 +18,9 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 import Header from './Header';
 import ConfirModal from './ConfirmModal';
+import { useDispatch } from 'react-redux';
+import { setThemeLight, setThemeDark } from '@/redux/modules/themeStore';
+import { useSelector } from 'react-redux';
 
 export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -27,6 +30,25 @@ export default function Sidebar() {
   const [user] = useAuthState(auth);
   const [deleteUser] = useDeleteUser(auth);
   const route = useRouter();
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state);
+  const themeLocal = JSON.parse(localStorage.getItem('theme')!);
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(theme));
+  }, [theme]);
+
+  useEffect(() => {
+    switch (themeLocal) {
+      case 'ligth':
+        dispatch(setThemeLight());
+        break;
+      case 'dark':
+        dispatch(setThemeDark());
+        break;
+    }
+  }, [dispatch, themeLocal]);
+
   if (loading) {
     <p>Procesando...</p>;
   }
@@ -65,9 +87,11 @@ export default function Sidebar() {
   return (
     <>
       <aside
-        className={`${
-          showSidebar ? 'left-0' : '-left-52 md:left-0'
-        } fixed h-screen w-52 bg-white shadow-xl duration-500 z-20 overflow-y-auto`}
+        className={`${showSidebar ? 'left-0' : '-left-52 md:left-0'} ${
+          theme === 'dark'
+            ? 'shadow-2xl bg-neutral-900 text-white'
+            : 'shadow-xl bg-white text-zinc-600'
+        } fixed h-screen w-52 duration-500 z-20 overflow-y-auto`}
       >
         <button
           className="md:hidden absolute right-4 top-3 text-2xl"
@@ -85,7 +109,7 @@ export default function Sidebar() {
             <span>7</span>
           </div>
         </div>
-        <Link href='/readme'>
+        <Link href="/readme">
           <List icon={<FaReadme />} title="Sobre" />
         </Link>
         <List icon={<AiFillSetting />} title="Configurações" />
@@ -99,6 +123,8 @@ export default function Sidebar() {
           icon={<BiLogOut />}
           title="Sair"
         />
+        <button onClick={() => dispatch(setThemeLight())}>Light</button>
+        <button onClick={() => dispatch(setThemeDark())}>Dark</button>
       </aside>
       <Header onClick={() => setShowSidebar(!showSidebar)} />
       {showModal && (
@@ -129,7 +155,7 @@ export const List = ({ title, icon, onClick }: ListType) => {
     <nav>
       <ul
         onClick={onClick}
-        className="flex items-center mb-3.5 ml-4 cursor-pointer text-zinc-600 hover:bg-purple-600 hover:text-white p-2 rounded duration-500"
+        className="flex items-center mb-3.5 ml-4 cursor-pointer hover:bg-purple-600 hover:text-white p-2 rounded duration-500"
       >
         <span className="text-xl">{icon}</span>
         <li className="ml-2 font-medium">{title}</li>

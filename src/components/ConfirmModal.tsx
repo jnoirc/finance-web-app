@@ -1,6 +1,7 @@
 'use client';
 import { ConfirmModalType } from '@/types/type';
 import { FaTimes } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 const ConfirModal = ({
   title,
   message,
@@ -8,9 +9,10 @@ const ConfirModal = ({
   onCancel,
   onCancelX,
 }: ConfirmModalType) => {
+  const theme = useSelector((state) => state);
   return (
-    <div className="fixed inset-0 h-screen w-full bg-gray-500 flex items-center justify-center p-2 z-30">
-      <div className="bg-white w-370 sm:w-480 h-60 rounded-lg shadow-md relative transition-opacity">
+    <div className={`${theme === 'dark' ? 'bg-neutral-800' : 'bg-neutral-400'} fixed inset-0 h-screen w-full flex items-center justify-center p-2 z-30`}>
+      <div className={`${theme === 'dark' ? 'bg-neutral-900 shadow-xl text-white' : 'bg-white shadow-md'} w-370 sm:w-480 h-60 rounded-lg relative transition-opacity`}>
         <FaTimes
           onClick={onCancelX}
           className="absolute right-4 top-4 cursor-pointer text-2xl"

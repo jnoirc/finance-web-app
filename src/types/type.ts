@@ -4,6 +4,9 @@ export type InputType = {
     isIcon?: boolean;
     onInputChange: (e: any) => void;
     error?: true | false;
+    inputDashboard?: boolean;
+    labelDashboard?: boolean;
+    labelAuth?: boolean;
 };
 
 export type ButtonType = {
@@ -28,7 +31,6 @@ export type ConfirmModalType = {
     title: string;
     message: string;
 };
-
 
 export type CardType = {
     title: string;
