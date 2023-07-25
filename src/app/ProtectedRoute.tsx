@@ -27,7 +27,7 @@ export default function ProtectedRoute({ children }: jsx) {
   }
 
   if (!user) {
-    return null;
+    return route.push('/login');
   }
 
   return <html>{children}</html>;

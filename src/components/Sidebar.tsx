@@ -30,13 +30,16 @@ export default function Sidebar() {
   const [isMounted, setIsMounted] = useState(false);
   const [showConfigs, setShowConfigs] = useState(false);
   const { theme, setTheme }: any = useContext(ThemeContext);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
   useEffect(() => {
     const themeLocal = localStorage.getItem('theme');
 
     if (themeLocal) {
       setTheme(themeLocal);
+      setIsDarkTheme(true);
     } else {
       setTheme('light');
+      setIsDarkTheme(false);
     }
 
     setIsMounted(true);
@@ -45,6 +48,7 @@ export default function Sidebar() {
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem('theme', theme);
+      setIsDarkTheme(true);
     }
   }, [theme, isMounted]);
 
@@ -83,13 +87,19 @@ export default function Sidebar() {
     setShowModal(false);
   };
 
+  const handleToggleTheme = () => {
+    const newTheme = isDarkTheme ? 'light' : 'dark';
+    setTheme(newTheme);
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   return (
     <>
       <aside
         className={`${showSidebar ? 'left-0' : '-left-52 md:left-0'} ${
           theme === 'dark'
             ? 'shadow-2xl bg-neutral-900 text-white'
-            : 'shadow-xl bg-white text-zinc-600'
+            : 'shadow-xl bg-zinc-100 text-zinc-600'
         } fixed h-screen w-52 duration-500 z-20 overflow-y-auto`}
       >
         <button
@@ -111,27 +121,31 @@ export default function Sidebar() {
         <Link href="/readme">
           <List icon={<FaReadme />} title="Sobre" />
         </Link>
-        <List onClick={() => setShowConfigs(!showConfigs)} icon={<AiFillSetting />} title="Configurações" />
-        <div className={`${showConfigs ? 'flex' : 'hidden'} gap-2 items-center ml-12 mb-3`}>
+        <List
+          onClick={() => setShowConfigs(!showConfigs)}
+          icon={<AiFillSetting />}
+          title="Configurações"
+        />
+        <div
+          className={`${
+            showConfigs ? 'flex' : 'hidden'
+          } gap-2 items-center ml-12 mb-3`}
+        >
           <div className="flex">
-            <input
-              className='cursor-pointer'
-              name="option"
-              id="light"
-              type="radio"
-              onClick={() => setTheme('light')}
-            />
-            <label className='font-semibold ml-2 cursor-pointer' htmlFor="light">Light</label>
-          </div>
-          <div className="flex">
-            <input
-              className='cursor-pointer'
-              name="option"
-              id="dark"
-              type="radio"
-              onClick={() => setTheme('dark')}
-            />
-            <label className='font-semibold ml-2 cursor-pointer' htmlFor="dark">Dark</label>
+            <button
+              className={`${
+                theme === 'dark' ? 'border-white' : ' border-black'
+              } border rounded-full w-10 h-5`}
+              onClick={handleToggleTheme}
+            >
+              <div
+                className={`${
+                  theme === 'dark'
+                    ? 'bg-white translate-x-5'
+                    : 'bg-black  translate-x-0'
+                } rounded-full w-5 h-5 duration-300`}
+              ></div>
+            </button>
           </div>
         </div>
         <List
