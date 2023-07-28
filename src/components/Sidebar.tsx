@@ -132,6 +132,7 @@ export default function Sidebar() {
           } gap-2 items-center ml-12 mb-3`}
         >
           <div className="flex">
+            <span className='mr-2'>Trocar tema</span>
             <button
               className={`${
                 theme === 'dark' ? 'border-white' : ' border-black'

@@ -36,7 +36,7 @@ export type CardType = {
     title: string;
     money: string;
     icon: JSX.Element;
-    colorMoney: 'green' |'red';
+    colorMoney: 'green' | 'red';
 };
 
 export type ItemType = {
