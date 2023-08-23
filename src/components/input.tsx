@@ -1,9 +1,8 @@
 'use client';
 
 import { InputType } from '@/types/type';
-import { useState } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { useContext } from 'react';
 import { ThemeContext } from '@/context/themeContext';
 export default function Input({
   type,
@@ -13,7 +12,7 @@ export default function Input({
   error,
   inputDashboard,
   labelDashboard,
-  labelAuth
+  labelAuth,
 }: InputType) {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -27,28 +26,26 @@ export default function Input({
     setInputValue(value);
     onInputChange(value);
   };
-  
+
   let themeInput = '';
   let themeLabel = '';
   let labelLoginRegister = '';
-  if(inputDashboard){
-    if(theme === 'dark'){
-      themeInput = 'bg-neutral-900 text-zinc-100'
+  if (inputDashboard) {
+    if (theme === 'dark') {
+      themeInput = 'bg-neutral-900 text-zinc-100';
+    } else {
+      themeInput = 'bg-white text-zinc-800';
     }
-    else{
-      themeInput = 'bg-white text-zinc-800'
+  }
+  if (labelDashboard) {
+    if (theme === 'dark') {
+      themeLabel = 'bg-neutral-900 text-zinc-300';
+    } else {
+      themeLabel = 'bg-white text-zinc-600';
     }
-  };
-  if(labelDashboard){
-    if(theme === 'dark'){
-      themeLabel = 'bg-neutral-900 text-zinc-300'
-    }
-    else{
-      themeLabel = 'bg-white text-zinc-600'
-    }
-  };
+  }
 
-  if(labelAuth){
+  if (labelAuth) {
     labelLoginRegister = 'bg-white';
   }
 
