@@ -4,7 +4,7 @@
 ## Instruções de Execução
 Para executar este projeto localmente, siga as etapas abaixo:
 
-1. Clonar o repositório: `git clone https://github.com/John-DevX/finance-web-app.git`
+1. Clonar o repositório: `git clone https://github.com/johnandertop/finance-web-app.git`
 2. Instalar as dependências: `npm install` ou `yarn install`
 3. Crie um projeto no Firebase em https://console.firebase.google.com/
 4. Na seção "Configuração" do seu projeto, você encontrará as informações necessárias para preencher as variáveis de ambiente:
