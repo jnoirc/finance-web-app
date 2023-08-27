@@ -1,4 +1,4 @@
-# Objetivo
+# Introdução 
 ### Este projeto foi feito para testar meus conhecimentos em front-end web.
 
 ## Instruções de Execução
