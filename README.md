@@ -1,7 +1,7 @@
 # Introdução 
 ### Este projeto foi feito para testar meus conhecimentos em front-end web.
 
-## Instruções de Execução 
+## Instruções de execução 
 ```bash
 yarn
 ```
