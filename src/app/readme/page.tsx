@@ -12,10 +12,10 @@ export default function page() {
       </Link>
       <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="font-extrabold text-2xl mb-6">Readme</h1>
-        <span className="font-medium">Projeto desenvolvido por: johnandertop</span>
+        <span className="font-medium">Projeto desenvolvido por: jnoirc</span>
         <Link
           className="flex mt-4"
-          href="https://github.com/johnandertop"
+          href="https://github.com/jnoirc"
           target="_blank"
           rel="noreferrer"
         >
