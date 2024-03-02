@@ -11,7 +11,7 @@ export default function Button({ title, onClick }: ButtonType) {
         onMouseEnter={() => setHasHover(true)}
         onMouseLeave={() => setHasHover(false)}
         onClick={onClick}
-        className="bg-purple-900 hover:bg-purple-800 text-white w-36 p-2.5 mt-5 mb-4 rounded font-semibold"
+        className="bg-purple-900 hover:bg-purple-800 text-white w-36 p-2.5 mt-5 mb-4 rounded-md font-semibold"
       >
         {title}
       </button>

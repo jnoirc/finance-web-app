@@ -56,7 +56,7 @@ export default function Input({
           error
             ? 'bg-red-100 focus:border-red-400 border-red-400'
             : 'focus:border-purple-600'
-        } rounded border-2 outline-none  p-3 w-72 mb-3 pl-4 duration-300 ${themeInput}`}
+        } rounded-md border-2 outline-none  p-3 w-72 mb-3 pl-4 duration-300 ${themeInput}`}
         type={showPassword ? 'text' : type}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}

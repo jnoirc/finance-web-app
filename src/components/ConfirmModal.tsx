@@ -1,4 +1,3 @@
-'use client';
 import { useContext } from 'react';
 import { ConfirmModalType } from '@/types/type';
 import { FaTimes } from 'react-icons/fa';
@@ -12,9 +11,16 @@ const ConfirModal = ({
   onCancelX,
 }: ConfirmModalType) => {
   const { theme }: any = useContext(ThemeContext);
+
   return (
-    <div className={`${theme === 'dark' ? 'bg-neutral-800' : 'bg-neutral-400'} fixed inset-0 h-screen w-full flex items-center justify-center p-2 z-30`}>
-      <div className={`${theme === 'dark' ? 'bg-neutral-900 shadow-xl text-white' : 'bg-white shadow-md'} w-370 sm:w-480 h-60 rounded-lg relative transition-opacity`}>
+    <div className="fixed inset-0 h-screen w-full flex items-center justify-center z-30 backdrop-blur-md">
+      <div
+        className={`${
+          theme === 'dark'
+            ? 'bg-neutral-900 shadow-xl text-white'
+            : 'bg-white shadow-md'
+        } w-370 sm:w-480 h-60 rounded-xl relative transition-opacity`}
+      >
         <FaTimes
           onClick={onCancelX}
           className="absolute right-4 top-4 cursor-pointer text-2xl"
@@ -28,13 +34,13 @@ const ConfirModal = ({
         </div>
         <div className="flex absolute bottom-4 right-5">
           <button
-            className="bg-green-700 text-white rounded p-2 flex items-center font-medium mr-2 hover:bg-green-600 duration-500"
+            className="bg-green-700 text-white rounded-md p-2 flex items-center font-medium mr-2 hover:bg-green-600 duration-500"
             onClick={onCancel}
           >
             Cancelar
           </button>
           <button
-            className="bg-red-700 hover:bg-red-600 text-white rounded p-2 flex items-center font-medium duration-500"
+            className="bg-red-700 hover:bg-red-600 text-white rounded-md p-2 flex items-center font-medium duration-500"
             onClick={onConfirm}
           >
             Confirmar

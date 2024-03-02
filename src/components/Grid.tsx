@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useContext } from 'react';
 import {
   BsFillArrowUpCircleFill,
@@ -16,12 +16,16 @@ export default function Grid(props: DeleteItem) {
 
   return items.map((item: ItemType, index: number) => (
     <section
-      className={`${theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-white'} grid grid-cols-4 place-items-center shadow-2xl p-2 mt-4 pl-6`}
+      className={`${
+        theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-white'
+      } grid grid-cols-4 place-items-center shadow-2xl p-2 mt-4 pl-6 rounded-md`}
       key={index}
     >
-      <div className='w-28  sm:mt-0 sm:w-52'>
+      <div className="w-28  sm:mt-0 sm:w-52">
         <h2 className="font-bold">Descrição</h2>
-        <span className="block mt-4 font-medium break-words">{item.description}</span>
+        <span className="block mt-4 font-medium break-words">
+          {item.description}
+        </span>
       </div>
       <div>
         <h2 className="font-bold">Valor</h2>

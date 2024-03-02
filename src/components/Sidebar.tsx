@@ -100,7 +100,7 @@ export default function Sidebar() {
           theme === 'dark'
             ? 'shadow-2xl bg-neutral-900 text-white'
             : 'shadow-xl bg-zinc-100 text-zinc-600'
-        } fixed h-screen w-52 duration-500 z-20 overflow-y-auto`}
+        } fixed h-screen w-52 duration-500 z-20 overflow-y-auto rounded-lg`}
       >
         <button
           className="md:hidden absolute right-4 top-3 text-2xl"
@@ -132,7 +132,7 @@ export default function Sidebar() {
           } gap-2 items-center ml-12 mb-3`}
         >
           <div className="flex">
-            <span className='mr-2'>Trocar tema</span>
+            <span className="mr-2">Trocar tema</span>
             <button
               className={`${
                 theme === 'dark' ? 'border-white' : ' border-black'

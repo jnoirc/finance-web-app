@@ -19,7 +19,7 @@ export default function Card({ title, money, icon, colorMoney }: CardType) {
     <div
       className={`${
         theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-white'
-      }  w-72 h-44 shadow-xl rounded-md relative bottom-16 hover:-translate-y-4 duration-500`}
+      }  w-72 h-44 shadow-xl rounded-lg relative bottom-16 hover:-translate-y-4 duration-500`}
     >
       <div className="flex justify-center gap-12 text-2xl mt-6">
         <h1 className="font-bold">{title}</h1>

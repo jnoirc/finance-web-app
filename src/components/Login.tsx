@@ -57,7 +57,7 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <form className="shadow-2xl w-500 h-480 bg-white rounded-md text-center flex flex-col items-center p-2">
+      <form className="shadow-2xl w-500 h-480 bg-white rounded-lg text-center flex flex-col items-center p-2">
         <Image
           className="mt-3"
           width={250}
