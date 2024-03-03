@@ -133,72 +133,76 @@ export default function Dashboard() {
           </div>
           <div>
             {showModal && (
-              <section className=" absolute inset-0 h-screen w-full flex items-center justify-center z-30 bg-[#0000007F]">
+              <section className=" fixed inset-0 h-screen w-full flex items-center justify-center z-30 bg-[#0000007F]">
                 <AnimModal>
                   <div
                     className={`${
                       theme === 'dark'
                         ? 'shadow-xl bg-neutral-900 text-white'
                         : 'shadow-md bg-white'
-                    } w-370 sm:w-480 h-80 rounded-xl relative flex items-center justify-center flex-col text-center pt-4`}
+                    } rounded-xl pt-4 px-4`}
                   >
-                    <FaTimes
-                      onClick={() => setShowModal(false)}
-                      className="absolute right-4 top-4 cursor-pointer text-2xl"
-                    />
-                    <div>
-                      <Input
-                        label="description"
-                        onInputChange={handleDescription}
-                        type="text"
-                        inputDashboard={true}
-                        labelDashboard={true}
-                      />
-                      <Input
-                        label="value"
-                        onInputChange={handleValue}
-                        type="number"
-                        inputDashboard={true}
-                        labelDashboard={true}
+                    <div className="flex justify-end">
+                      <FaTimes
+                        onClick={() => setShowModal(false)}
+                        className=" cursor-pointer text-2xl"
                       />
                     </div>
-                    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center">
+                    <div className="w-[340px] sm:w-480 h-80 rounded-xl relative flex items-center justify-center flex-col text-center pt-4">
                       <div>
-                        <input
-                          id="radioRevenue"
-                          className="w-5 h-5 cursor-pointer"
-                          type="radio"
-                          name="option"
-                          checked={selectedType === 'revenue'}
-                          onChange={() => setSelectedType('revenue')}
+                        <Input
+                          label="description"
+                          onInputChange={handleDescription}
+                          type="text"
+                          inputDashboard={true}
+                          labelDashboard={true}
                         />
-                        <label
-                          className="text-xl font-bold ml-2 cursor-pointer"
-                          htmlFor="radioRevenue"
-                        >
-                          Receita
-                        </label>
-                        <input
-                          id="radioExpense"
-                          className="w-5 h-5 ml-4 cursor-pointer"
-                          type="radio"
-                          name="option"
-                          checked={selectedType === 'expense'}
-                          onChange={() => setSelectedType('expense')}
+                        <Input
+                          label="value"
+                          onInputChange={handleValue}
+                          type="number"
+                          inputDashboard={true}
+                          labelDashboard={true}
                         />
-                        <label
-                          className="text-xl font-bold ml-2 cursor-pointer"
-                          htmlFor="radioExpense"
-                        >
-                          Despesa
-                        </label>
                       </div>
-                      <button
-                        onClick={addItems}
-                        className="text-white bg-green-700 hover:bg-green-600 w-32 p-2 border-none rounded-md duration-500 font-bold mt-6 sm:ml-4 sm:mt-0"
-                      >
-                        Adicionar
-                      </button>
+                      <div className="mt-8 flex flex-col sm:flex-row items-center justify-center">
+                        <div>
+                          <input
+                            id="radioRevenue"
+                            className="w-5 h-5 cursor-pointer"
+                            type="radio"
+                            name="option"
+                            checked={selectedType === 'revenue'}
+                            onChange={() => setSelectedType('revenue')}
+                          />
+                          <label
+                            className="text-xl font-bold ml-2 cursor-pointer"
+                            htmlFor="radioRevenue"
+                          >
+                            Receita
+                          </label>
+                          <input
+                            id="radioExpense"
+                            className="w-5 h-5 ml-4 cursor-pointer"
+                            type="radio"
+                            name="option"
+                            checked={selectedType === 'expense'}
+                            onChange={() => setSelectedType('expense')}
+                          />
+                          <label
+                            className="text-xl font-bold ml-2 cursor-pointer"
+                            htmlFor="radioExpense"
+                          >
+                            Despesa
+                          </label>
+                        </div>
+                        <button
+                          onClick={addItems}
+                          className="text-white bg-green-700 hover:bg-green-600 w-32 p-2 border-none rounded-md duration-500 font-bold mt-6 sm:ml-4 sm:mt-0"
+                        >
+                          Adicionar
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </AnimModal>

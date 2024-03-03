@@ -20,15 +20,14 @@ const ConfirModal = ({
             theme === 'dark'
               ? 'bg-neutral-900 shadow-xl text-white'
               : 'bg-white shadow-md'
-          } w-370 sm:w-480 h-60 rounded-xl relative transition-opacity`}
+          } w-370 sm:w-480 h-60 rounded-xl relative px-4`}
         >
-          <FaTimes
-            onClick={onCancelX}
-            className="absolute right-4 top-4 cursor-pointer text-2xl"
-          />
-          <h1 className="font-semibold font-zinc-600 text-xl ml-4 mt-4">
-            {title}
-          </h1>
+          <div className="flex justify-between pt-4">
+            <h1 className="font-semibold font-zinc-600 text-xl ml-4">
+              {title}
+            </h1>
+            <FaTimes onClick={onCancelX} className=" cursor-pointer text-2xl" />
+          </div>
           <div className="mt-3 mx-auto w-72 sm:w-430 bg-red-100 text-red-600 font-medium rounded-md p-2">
             <p>{message}</p>
             <span></span>
