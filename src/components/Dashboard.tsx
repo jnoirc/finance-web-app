@@ -14,6 +14,7 @@ import Input from './input';
 import { FaTimes } from 'react-icons/fa';
 import { ThemeContext } from '@/context/themeContext';
 import AnimModal from '@/app/anim/AnimModal';
+import ConfirModal from './ConfirmModal';
 
 export default function Dashboard() {
   const [moneyRevenue, setMoneyRevenue] = useState(0);
@@ -27,6 +28,7 @@ export default function Dashboard() {
   const convertMoneyBalance = formatMoney(moneyBalance);
   const colorMoney = moneyBalance < 0 ? 'red' : 'green';
   const [showModal, setShowModal] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   const { theme }: any = useContext(ThemeContext);
   useEffect(() => {
     const storedItems = localStorage.getItem('items');
@@ -75,13 +77,11 @@ export default function Dashboard() {
   }
 
   function clearItems() {
-    const confirm = window.confirm();
-    if (confirm) {
-      localStorage.removeItem('items');
-      setMoneyRevenue(0);
-      setMoneyExpense(0);
-      setMoneyBalance(0);
-    }
+    localStorage.removeItem('items');
+    setMoneyRevenue(0);
+    setMoneyExpense(0);
+    setMoneyBalance(0);
+    setConfirm(false);
   }
 
   return (
@@ -125,11 +125,20 @@ export default function Dashboard() {
               Adicionar
             </button>
             <button
-              onClick={clearItems}
+              onClick={() => setConfirm(true)}
               className="text-white bg-red-700 hover:bg-red-600 w-32 p-2 border-none rounded-md duration-500 font-bold ml-4 mb-6"
             >
               Limpar tudo
             </button>
+            {confirm && (
+              <ConfirModal
+                title="Deletar todos os itens"
+                message="Deseja mesmo deletar todos os itens?"
+                onConfirm={clearItems}
+                onCancel={() => setConfirm(false)}
+                onCancelX={() => setConfirm(false)}
+              />
+            )}
           </div>
           <div>
             {showModal && (
