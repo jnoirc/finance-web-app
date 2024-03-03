@@ -133,7 +133,7 @@ export default function Dashboard() {
             {confirm && (
               <ConfirModal
                 title="Deletar todos os itens"
-                message="Deseja mesmo deletar todos os itens?"
+                message="Tem certeza de que deseja excluir todos os itens?"
                 onConfirm={clearItems}
                 onCancel={() => setConfirm(false)}
                 onCancelX={() => setConfirm(false)}

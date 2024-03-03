@@ -1,5 +1,5 @@
 'use client';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
@@ -8,12 +8,24 @@ import { AiFillDelete } from 'react-icons/ai';
 import { DeleteItem, ItemType } from '@/types/type';
 import deleteItem from '@/utils/functions/deleteItem';
 import { ThemeContext } from '@/context/themeContext';
-
+import ConfirModal from './ConfirmModal';
 export default function Grid(props: DeleteItem) {
   const storedItems = localStorage.getItem('items');
   const items = storedItems ? JSON.parse(storedItems) : [];
+  const [confirm, setConfirm] = useState(false);
   const { theme }: any = useContext(ThemeContext);
-
+  const deleteItems = (index: number) => {
+    deleteItem(
+      index,
+      props.setMoneyRevenue,
+      props.setMoneyExpense,
+      props.setMoneyBalance,
+      props.moneyRevenue,
+      props.moneyExpense,
+      props.moneyBalance
+    );
+    setConfirm(false);
+  };
   return items.map((item: ItemType, index: number) => (
     <section
       className={`${
@@ -46,19 +58,18 @@ export default function Grid(props: DeleteItem) {
         <span className="block mt-4">
           <AiFillDelete
             className="text-2xl cursor-pointer"
-            onClick={() =>
-              deleteItem(
-                index,
-                props.setMoneyRevenue,
-                props.setMoneyExpense,
-                props.setMoneyBalance,
-                props.moneyRevenue,
-                props.moneyExpense,
-                props.moneyBalance
-              )
-            }
+            onClick={() => setConfirm(true)}
           />
         </span>
+        {confirm && (
+          <ConfirModal
+            title="Excluir item"
+            message="Você realmente deseja excluir este item?"
+            onConfirm={() => deleteItems(index)}
+            onCancel={() => setConfirm(false)}
+            onCancelX={() => setConfirm(false)}
+          />
+        )}
       </div>
     </section>
   ));
