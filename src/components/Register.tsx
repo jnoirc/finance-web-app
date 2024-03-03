@@ -11,6 +11,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
 import { ToastContainer } from 'react-toastify';
 import useContexts from '@/app/hooks/useContexts';
+import Loading from './Loading';
 export default function Register() {
   const { notifyError, notifySucess } = useContexts();
   const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ export default function Register() {
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <p className="text-lg font-bold">Processando...</p>
+        <Loading />
       </div>
     );
   }

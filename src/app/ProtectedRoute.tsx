@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
+import Loading from '@/components/Loading';
 interface jsx {
   children: React.ReactNode;
   page?: 'dashboard' | 'readme' | 'login';
@@ -26,7 +27,7 @@ export default function ProtectedRoute({ children, page }: jsx) {
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <p className="text-lg font-bold">Carregando...</p>
+        <Loading />
       </div>
     );
   }

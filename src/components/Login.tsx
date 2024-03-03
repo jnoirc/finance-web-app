@@ -11,6 +11,7 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
 import { ToastContainer } from 'react-toastify';
 import useContexts from '@/app/hooks/useContexts';
+import Loading from './Loading';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +37,7 @@ export default function Login() {
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <p className="text-lg font-bold">Processando autenticacao</p>
+        <Loading />
       </div>
     );
   }
