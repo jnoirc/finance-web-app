@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,8 +9,10 @@ import Input from '@/components/input';
 import Button from '@/components/Button';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
-
+import { ToastContainer } from 'react-toastify';
+import useContexts from '@/app/hooks/useContexts';
 export default function Register() {
+  const { notifyError, notifySucess } = useContexts();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -25,6 +27,12 @@ export default function Register() {
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  useEffect(() => {
+    if (error) {
+      notifyError();
+    }
+  }, [error]);
+
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
@@ -36,9 +44,11 @@ export default function Register() {
     console.error(`Error:`, error);
   }
   if (user) {
-    router.push('/login');
+    notifySucess();
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000);
   }
-
   const handleForm = async (e: any) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(email, password);
@@ -46,6 +56,7 @@ export default function Register() {
 
   return (
     <div className="flex items-center justify-center h-screen">
+      <ToastContainer />
       <form className="shadow-2xl w-500 h-480 bg-white rounded-md text-center flex flex-col items-center p-2">
         <Image
           className="mt-3"

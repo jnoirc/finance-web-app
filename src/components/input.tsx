@@ -3,7 +3,7 @@
 import { InputType } from '@/types/type';
 import { useState, useContext, useRef } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 export default function Input({
   type,
   label,
@@ -17,7 +17,7 @@ export default function Input({
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const { theme }: any = useContext(ThemeContext);
+  const { theme }: any = useContexts();
   const passwordViewer = () => {
     setShowPassword(!showPassword);
   };

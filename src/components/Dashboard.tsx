@@ -8,14 +8,14 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 import Card from './Card';
 import Sidebar from './Sidebar';
 import Grid from './Grid';
-import formatMoney from '@/utils/functions/moneyFormat';
+import moneyFormat from '@/utils/functions/moneyFormat';
 import addedItem from '@/utils/functions/addItem';
 import Input from './input';
 import { FaTimes } from 'react-icons/fa';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 import AnimModal from '@/app/anim/AnimModal';
 import ConfirModal from './ConfirmModal';
-
+import { ToastContainer } from 'react-toastify';
 export default function Dashboard() {
   const [moneyRevenue, setMoneyRevenue] = useState(0);
   const [moneyExpense, setMoneyExpense] = useState(0);
@@ -23,13 +23,14 @@ export default function Dashboard() {
   const [inputDescription, setInputDescription] = useState(0);
   const [inputValue, setInputValue] = useState(0);
   const [selectedType, setSelectedType] = useState('revenue');
-  const convertMoneyRevenue = formatMoney(moneyRevenue);
-  const convertMoneyExpense = formatMoney(moneyExpense);
-  const convertMoneyBalance = formatMoney(moneyBalance);
+  const convertMoneyRevenue = moneyFormat(moneyRevenue);
+  const convertMoneyExpense = moneyFormat(moneyExpense);
+  const convertMoneyBalance = moneyFormat(moneyBalance);
   const colorMoney = moneyBalance < 0 ? 'red' : 'green';
   const [showModal, setShowModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const { theme }: any = useContext(ThemeContext);
+  const { theme, notifySucess, sucess, setSucess } = useContexts();
+
   useEffect(() => {
     const storedItems = localStorage.getItem('items');
     if (storedItems) {
@@ -83,9 +84,15 @@ export default function Dashboard() {
     setMoneyBalance(0);
     setConfirm(false);
   }
-
+  useEffect(() => {
+    if (sucess) {
+      notifySucess();
+      setSucess(false);
+    }
+  }, [sucess]);
   return (
     <div className="mb-10 flex">
+      <ToastContainer />
       <aside>
         <Sidebar />
       </aside>

@@ -18,7 +18,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 import Header from './Header';
 import ConfirModal from './ConfirmModal';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +29,7 @@ export default function Sidebar() {
   const route = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const [showConfigs, setShowConfigs] = useState(false);
-  const { theme, setTheme }: any = useContext(ThemeContext);
+  const { theme, setTheme }: any = useContexts();
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   useEffect(() => {
     const themeLocal = localStorage.getItem('theme');

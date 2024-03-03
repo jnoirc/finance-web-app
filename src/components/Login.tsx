@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,12 +9,13 @@ import Input from '@/components/input';
 import Button from '@/components/Button';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/firebase';
-
+import { ToastContainer } from 'react-toastify';
+import useContexts from '@/app/hooks/useContexts';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const route = useRouter();
-
+  const { notifyError, setSucess } = useContexts();
   const handleEmail = (value: any) => {
     setEmail(value);
   };
@@ -26,13 +27,16 @@ export default function Login() {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  if (error) {
-    console.error('error');
-  }
+  useEffect(() => {
+    if (error) {
+      notifyError();
+    }
+  }, [error]);
+
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <p className="text-lg font-bold">Processando...</p>
+        <p className="text-lg font-bold">Processando autenticacao</p>
       </div>
     );
   }
@@ -42,6 +46,7 @@ export default function Login() {
 
   const handleForm = async (e: any) => {
     e.preventDefault();
+    setSucess(true);
     try {
       await signInWithEmailAndPassword(email, password);
       const user = auth.currentUser;
@@ -96,6 +101,7 @@ export default function Login() {
           </Link>
         </div>
         <Button onClick={handleForm} title="Entrar" />
+        <ToastContainer />
       </form>
     </div>
   );

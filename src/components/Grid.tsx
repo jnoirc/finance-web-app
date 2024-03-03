@@ -7,13 +7,13 @@ import {
 import { AiFillDelete } from 'react-icons/ai';
 import { DeleteItem, ItemType } from '@/types/type';
 import deleteItem from '@/utils/functions/deleteItem';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 import ConfirModal from './ConfirmModal';
 export default function Grid(props: DeleteItem) {
   const storedItems = localStorage.getItem('items');
   const items = storedItems ? JSON.parse(storedItems) : [];
   const [confirm, setConfirm] = useState(false);
-  const { theme }: any = useContext(ThemeContext);
+  const { theme }: any = useContexts();
   const deleteItems = (index: number) => {
     deleteItem(
       index,

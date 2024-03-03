@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ConfirmModalType } from '@/types/type';
 import { FaTimes } from 'react-icons/fa';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 import AnimModal from '@/app/anim/AnimModal';
 const ConfirModal = ({
   title,
@@ -10,7 +10,7 @@ const ConfirModal = ({
   onCancel,
   onCancelX,
 }: ConfirmModalType) => {
-  const { theme }: any = useContext(ThemeContext);
+  const { theme }: any = useContexts();
 
   return (
     <div className="fixed inset-0 h-screen w-full flex items-center justify-center z-30 bg-[#0000007F]">

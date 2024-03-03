@@ -1,10 +1,10 @@
 'use client';
 import { useContext } from 'react';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 import { CardType } from '@/types/type';
 
 export default function Card({ title, money, icon, colorMoney }: CardType) {
-  const { theme }: any = useContext(ThemeContext);
+  const { theme }: any = useContexts();
   const colorStyles = {
     green: 'text-green-600',
     red: 'text-red-600',

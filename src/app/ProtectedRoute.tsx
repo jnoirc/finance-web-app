@@ -34,15 +34,6 @@ export default function ProtectedRoute({ children, page }: jsx) {
     if (!user) {
       return null;
     }
-  } else if (page == 'login') {
-    if (user) {
-      return (
-        <div className="h-screen flex items-center justify-center">
-          <p className="text-lg font-bold">Carregando...</p>
-        </div>
-      );
-    }
   }
-
   return <html>{children}</html>;
 }

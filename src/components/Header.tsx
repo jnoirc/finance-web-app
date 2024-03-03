@@ -1,10 +1,10 @@
 'use client';
 import { useContext } from 'react';
-import { ThemeContext } from '@/context/themeContext';
+import useContexts from '@/app/hooks/useContexts';
 import { HeaderType } from '@/types/type';
 import { GiHamburgerMenu } from 'react-icons/gi';
 export default function Header({ onClick }: HeaderType) {
-  const { theme }: any = useContext(ThemeContext);
+  const { theme }: any = useContexts();
   return (
     <header
       className={`${
