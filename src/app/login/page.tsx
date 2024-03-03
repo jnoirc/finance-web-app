@@ -1,4 +1,5 @@
 import Login from '@/components/Login';
+import ProtectedRoute from '../ProtectedRoute';
 
 export const metadata = {
   title: 'Login',
@@ -7,7 +8,9 @@ export const metadata = {
 export default function page() {
   return (
     <div>
-      <Login />
+      <ProtectedRoute page="login">
+        <Login />
+      </ProtectedRoute>
     </div>
   );
 }

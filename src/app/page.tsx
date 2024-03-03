@@ -9,7 +9,7 @@ export default function Home() {
   const containerClassName =
     theme === 'dark' ? 'bg-neutral-950' : 'bg-zinc-100';
   return (
-    <ProtectedRoute>
+    <ProtectedRoute page="dashboard">
       <body className={containerClassName}>
         <Dashboard />
       </body>
